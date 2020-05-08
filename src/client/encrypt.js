@@ -3,6 +3,7 @@
 const crypto = require('crypto')
 const debug = require('debug')('minecraft-protocol')
 const yggdrasil = require('yggdrasil')
+const mcleaks = require('node-mcleaks')
 
 module.exports = function (client, options) {
   const yggdrasilServer = yggdrasil.server({ agent: options.agent })
@@ -36,9 +37,22 @@ module.exports = function (client, options) {
         }
       }
 
-      function joinServerRequest (cb) {
-        yggdrasilServer.join(options.accessToken, client.session.selectedProfile.id,
-          packet.serverId, sharedSecret, packet.publicKey, cb)
+      function joinServerRequest(cb) {
+        if (options.mcLeaksToken) {
+          // Join server with MCLeaks
+          mcleaks.join({
+            session: options.accessToken,
+            mcname: client.username,
+            server: (options.host || 'localhost')+":"+options.port||'25565',
+            serverid: packet.serverId,
+            sharedsecret: sharedSecret,
+            serverkey: packet.publicKey
+          }, cb);
+        } else {
+          // Join server with Mojang account
+          yggdrasilServer.join(options.accessToken, client.session.selectedProfile.id,
+              packet.serverId, sharedSecret, packet.publicKey, cb);
+        }
       }
 
       function sendEncryptionKeyResponse () {

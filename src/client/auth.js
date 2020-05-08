@@ -1,12 +1,13 @@
 const UUID = require('uuid-1345')
 const yggdrasil = require('yggdrasil')
+const mcleaks = require('node-mcleaks')
 
 module.exports = function (client, options) {
   const yggdrasilClient = yggdrasil({ agent: options.agent })
   const clientToken = options.clientToken || (options.session && options.session.clientToken) || UUID.v4().toString()
   const skipValidation = false || options.skipValidation
   options.accessToken = null
-  options.haveCredentials = options.password != null || (clientToken != null && options.session != null)
+  options.haveCredentials = options.password != null || (clientToken != null && options.session != null) || options.mcLeaksToken
 
   if (options.haveCredentials) {
     // make a request to get the case-correct username before connecting.
@@ -21,8 +22,20 @@ module.exports = function (client, options) {
         options.connect(client)
       }
     }
-
-    if (options.session) {
+    if (options.mcLeaksToken) {
+      mcleaks.redeem({token: options.mcLeaksToken}, function (err, data) {
+        if (err) {
+          cb(err, null)
+        } else {
+          cb(null, {
+            accessToken: data.result.session,
+            selectedProfile: {
+                name: data.result.mcname
+            }
+          })
+        }
+      })
+    } else if (options.session) {
       if (!skipValidation) {
         yggdrasilClient.validate(options.session.accessToken, function (err) {
           if (!err) { cb(null, options.session) } else {

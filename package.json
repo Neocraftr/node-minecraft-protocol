@@ -6,7 +6,7 @@
   "types": "src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git://github.com/PrismarineJS/node-minecraft-protocol.git"
+    "url": "git://github.com/Dominic11/node-minecraft-protocol.git"
   },
   "scripts": {
     "prepublish": "require-self",
@@ -53,6 +53,7 @@
     "prismarine-nbt": "^1.2.1",
     "protodef": "^1.6.7",
     "readable-stream": "^3.0.6",
-    "uuid-1345": "^1.0.1"
+    "uuid-1345": "^1.0.1",
+    "node-mcleaks": "git+https://github.com/funniray/node-mcleaks.git"
   }
 }
