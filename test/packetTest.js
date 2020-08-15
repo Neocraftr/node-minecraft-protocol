@@ -77,7 +77,7 @@ const values = {
         results[typeArgs[index].name] = v
       }
     })
-    delete context['..']
+    delete results['..']
     return results
   },
   count: 1, // TODO : might want to set this to a correct value
@@ -128,6 +128,16 @@ const values = {
   u64: [0, 1],
   entityMetadata: [
     { key: 17, value: 0, type: 0 }
+  ],
+  topBitSetTerminatedArray: [
+    {
+      slot: 0,
+      item: slotValue
+    },
+    {
+      slot: 1,
+      item: slotValue
+    }
   ],
   objectData: {
     intField: 9,
@@ -268,8 +278,10 @@ mc.supportedVersions.forEach(function (supportedVersion, i) {
         }
       })
       Object.keys(p2).forEach(function (field) {
-        assert.ok(field in p1, 'field ' + field + ' missing in p1, in p2 it has value ' +
-          JSON.stringify(p2[field]))
+        if (p2[field] !== undefined) {
+          assert.ok(field in p1, 'field ' + field + ' missing in p1, in p2 it has value ' +
+            JSON.stringify(p2[field]))
+        }
       })
     }
   })

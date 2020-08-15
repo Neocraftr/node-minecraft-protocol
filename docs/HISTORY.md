@@ -1,5 +1,38 @@
 # History
 
+## 1.15.0
+
+* options for ping timeout and custom auth server
+
+## 1.14.0
+
+* electron support using aes-js (thanks @IdanHo)
+* prevent ping hanging if server never replies
+
+## 1.13.0
+
+* minecraft 1.16 support
+
+## 1.12.4
+
+* better hide errors
+
+## 1.12.3
+
+* handle SRV record failure better (useful for tcp shield)
+
+## 1.12.2
+
+* make SRV record correctly propagate host to serverHost field (fix for tcp shield)
+
+## 1.12.1
+
+* fix for some servers in tcpdns (thanks @FTOH)
+
+## 1.12.0
+
+* use protodef compiler,  making node-minecraft-protocol 10x faster, thanks for this huge improvement @Karang
+
 ## 1.11.0
 
 * proxy support in auth (thanks @IdanHo)

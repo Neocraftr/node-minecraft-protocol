@@ -6,7 +6,7 @@ const yggdrasil = require('yggdrasil')
 const mcleaks = require('node-mcleaks')
 
 module.exports = function (client, options) {
-  const yggdrasilServer = yggdrasil.server({ agent: options.agent })
+  const yggdrasilServer = yggdrasil.server({ agent: options.agent, host: options.sessionServer || 'https://sessionserver.mojang.com' })
   client.once('encryption_begin', onEncryptionKeyRequest)
 
   function onEncryptionKeyRequest (packet) {
