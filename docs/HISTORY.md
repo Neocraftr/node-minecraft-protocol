@@ -1,5 +1,29 @@
 # History
 
+## 1.22.0
+
+* Don't stringify every packet if debug not enabled (@evan-goode)
+* Add handler for Login Plugin Message (@ph0t0shop)
+* Password=false now using offline mode (@dada513)
+
+## 1.21.0
+
+* Integrate Authentication for Microsoft Accounts (thanks @Kashalls)
+
+## 1.20.2
+
+* add back token auth now that mineflayer is fixed
+
+## 1.20.1
+
+* Temporarily revert token auth to fix a bug
+
+## 1.20.0
+
+* Add token auth like the vanilla launcher (save the token) (thanks @ph0t0shop)
+* Only use fullReason for the disconnect packet (thanks @DeltaEvo)
+* End the serializer instead of unpiping streams (thanks @DeltaEvo)
+
 ## 1.19.0
 
 * make auto version more robust by giving up after 5s if no answer to ping is given but the version is returned

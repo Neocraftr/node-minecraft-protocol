@@ -38,7 +38,7 @@ module.exports = function (client, options) {
       }
 
       function joinServerRequest(cb) {
-        if (options.mcLeaksToken) {
+        if (options.auth == 'mcleaks') {
           // Join server with MCLeaks
           mcleaks.join({
             session: options.accessToken,
