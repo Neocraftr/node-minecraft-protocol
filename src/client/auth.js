@@ -27,7 +27,7 @@ module.exports = async function (client, options) {
       return JSON.parse(await fs.readFile(path.join(options.profilesFolder, 'launcher_profiles.json'), 'utf8'))
     } catch (err) {
       await fs.mkdir(options.profilesFolder, { recursive: true })
-      await fs.writeFile(path.join(options.profilesFolder, 'launcher_profiles.json'), '{}')
+      await fs.writeFile(path.join(options.profilesFolder, 'launcher_profiles.json'), JSON.stringify({ authenticationDatabase: {} }))
       return { authenticationDatabase: {} }
     }
   }
@@ -49,7 +49,7 @@ module.exports = async function (client, options) {
   if (options.haveCredentials) {
     // make a request to get the case-correct username before connecting.
     const cb = function (err, session) {
-      if (options.profilesFolder) {
+      if (options.profilesFolder && options.auth != 'mcleaks') {
         getLauncherProfiles().then((auths) => {
           try {
             const lowerUsername = options.username.toLowerCase()
