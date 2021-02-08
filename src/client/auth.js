@@ -51,6 +51,7 @@ module.exports = async function (client, options) {
     const cb = function (err, session) {
       if (options.profilesFolder && options.auth != 'mcleaks') {
         getLauncherProfiles().then((auths) => {
+          if (!auths.authenticationDatabase) auths.authenticationDatabase = []
           try {
             const lowerUsername = options.username.toLowerCase()
             let profile = Object.keys(auths.authenticationDatabase).find(key =>
