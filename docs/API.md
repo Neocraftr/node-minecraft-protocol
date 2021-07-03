@@ -29,6 +29,10 @@ automatically logged in and validated against mojang's auth.
 
 Create a server instance for `version` of minecraft.
 
+### server.writeToClients(clients, name, params)
+
+Write a packet to all `clients` but encode it only once.
+
 ### server.onlineModeExceptions
 
 This is a plain old JavaScript object. Add a key with the username you want to
@@ -221,9 +225,15 @@ correct data type. You can figure out the types [here](http://wiki.vg/Entities#E
 
 ## mc.ping(options, callback)
 
-Ping a minecraft server and retrieve information about it
+`options` is an object containing the following:
+* host : default too locahost
+* port : default too 25565
+* version: default too most recent version
 
-`callback(err, pingResults)`
+Ping a minecraft server and return a promise or use an optional callback containing the information about it
+
+returns: `promise( <pending> ).then(pingResult).catch(err)`
+callback `callback(err, pingResults)`
 
 `pingResults`:
 
